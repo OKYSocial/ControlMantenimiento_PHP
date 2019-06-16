@@ -1,0 +1,72 @@
+Instructivo Instalación SIMI
+
+Para ingresar al sistema
+===================
+Documento: 123456
+Password: laclave
+
+Por defecto todo operario que se cree, el sistema le asigna como clave el mismo documento ingresado.
+
+Este pequeño desarrollo, se realizó con apoyo de varias herramientas:
+
+Ide NetBeans 
+Xampp - Apache
+Patrones MVC y Factory Method
+HTML 5 
+Css 
+Bootstrap
+Jquery
+JavaScript
+Font Awesome Iconos
+Ayuda en chm y pdf
+Formoid
+
+Empleando los motores de BD: Oracle, MySql y SQL Server (Todos los scripts están incluidos)
+
+Una vez descomprimido el archivo, debe quedar una carpeta llamada: “ControlMantemimiento_php”, la debes copiar dentro del Xampp en la carpeta: htdocs.
+
+Realizado lo anterior, procede a crear los sripts en la BD que tengas instalada, por defecto está con MySql, tomas los scripts que se encuentran en la carpeta BD y los ejecutas tal cual en tu MySql. 
+
+Ahora si deseas con Oracle, entonces tomas los scripts que se encuentran en la carpeta BD Scripts_Oracle, y renombras el archivo AccesoDatos_Oracle por AccesoDatos, y desde luego el original que hay apuntando a MySQL también le colocas cualquier otro nombre, pues solo debe quedar un AccesoDatos en la aplicación y realizas el cambio en la clase: Conexión así:
+
+Debes reemplazar las dos siguientes líneas:
+
+$Conexion = new mysqli("localhost", "root", NULL, "ControlMantenimientoDB");
+if (mysqli_connect_errno()){
+
+Por estas:
+
+$Conexion = oci_connect('CONTROLMANTENIMIENTODB', 'tiger', 'localhost/XE');
+if (!$Conexion) {
+
+Pero antes debes alterar el PHP.ini quitando el ; del archivo para habilitar las conexiones hacia Oracle, en ese archivo encontrarás una línea así:
+
+; extension=php_oci8_11g.dll  ; Use with Oracle 11gR2 Instant Client
+
+Debes borrar el primer punto y coma que ves ahí, con eso queda habilitada la conexión con Oracle (Busca desde luego la versión de Oracle que tengas instalada)
+
+Por último, en el formulario de Mantenimiento debes cambiar el formato de fecha a “D/M/Y”, igualmente en la clase calendar.
+
+Y en la BD es conveniente aplicar este alter: alter:
+
+session set nls_date_format='DD/MM/YYYY HH24:MI:SS'; 
+
+Donde HH24:MI:SS es opcional 
+
+
+Si deseas trabajar con SQL Server, mira el instructivo que hay para ello, donde la clave está en descargar la dll adecuada, dependiendo de la versión de tu PHP.
+
+Sobra decir que debes modificar las claves a la BD y el usuario que tengas tú. Donde para este caso
+
+MySql está con el usuario: root y con clave = XXXX.  
+Oracle está con usuario: CONTROLMANTENIMIENTODB y clave = tiger
+SQL Server está con SQLEXPRESS local y sin clave (Autenticación Windows)
+
+
+Si tienes problemas, no dudes en escribirme a:
+
+correal_95@hotmail.com 
+
+y de alguna manera, lo ponemos a correr.
+
+Espero les guste..
