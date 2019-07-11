@@ -15,7 +15,7 @@ class Funciones
    public static function Validar_CampoRequerido($cadena)
    {     
      $respuesta = FALSE;  
-     if (empty(trim($cadena)))  // Validar Campo en blanco
+     if (trim($cadena) == NULL)  // Validar Campo en blanco
      {
         $respuesta = TRUE;
      }
